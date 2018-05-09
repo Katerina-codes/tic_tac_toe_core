@@ -9,7 +9,7 @@ public class Game {
 
     private final UI ui;
     private Board board;
-    private Player currentPlayer;
+    public Player currentPlayer;
 
     public Game(UI ui, Board board) {
         this.ui = ui;
