@@ -74,7 +74,12 @@ public class Controller implements UI {
     }
 
     private void announceWinner(String winner) {
-        String result = String.format("Game over! %s won!", winner);
+        String result;
+        if (winner.equals("Tie")) {
+            result = "Game Over! It's A Tie!";
+        } else {
+            result = String.format("Game Over! %s Won!", winner);
+        }
         announceResult.setText(result);
     }
 
