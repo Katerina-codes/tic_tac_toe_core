@@ -6,10 +6,10 @@ import game.Result;
 import game.UI;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 
 import java.util.List;
-
-import static java.util.Arrays.asList;
 
 public class Controller implements UI {
     public Button one;
@@ -22,6 +22,8 @@ public class Controller implements UI {
     public Button eight;
     public Button nine;
     private final Board board = new Board(3);
+    public Text gameOver;
+    public Label announceResult;
     private PlayerFactory playerTypes = new PlayerFactory(this);
     private List<Player> players = playerTypes.getPlayerTypes("1");
     private Player playerOne = players.get(0);
@@ -69,19 +71,11 @@ public class Controller implements UI {
 
     @Override
     public void displayBoard(List<Mark> grid, int size) {
-        List<Button> buttons = asList(one, two, three, four, five, six, seven, eight, nine);
-        for (int i = 0; i < grid.size(); i++) {
-            for (Button button : buttons) {
-                if (grid.get(i) == Mark.EMPTY) {
-                    button.setText(String.valueOf((i + 1)));
-                    i += 1;
-                } else {
-                    button.getText();
-                    i += 1;
-                }
-            }
-        }
+    }
 
+    private void announceWinner(String winner) {
+        String result = String.format("Game over! %s won!", winner);
+        announceResult.setText(result);
     }
 
     public void makeMove(ActionEvent actionEvent) {
@@ -91,6 +85,11 @@ public class Controller implements UI {
         board.updateMove(moveNumber - 1, currentPlayer.getMark());
         buttonPressed.setText(String.valueOf(currentPlayer.getMark()));
         switchPlayer(playerOne, playerTwo);
+
+        if (board.gameIsOver()) {
+            Result winner = board.findWinner();
+            announceWinner(winner.getResult());
+        }
     }
 
     private void switchPlayer(Player playerOne, Player playerTwo) {

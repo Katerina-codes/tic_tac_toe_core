@@ -16,5 +16,6 @@
         <Button text="7" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="seven"/>
         <Button text="8" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="2" fx:id="eight"/>
         <Button text="9" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="3" fx:id="nine"/>
+        <Label GridPane.rowIndex="12" GridPane.columnIndex="0" fx:id="announceResult"/>
     </GridPane>
 </AnchorPane>
