@@ -7,8 +7,6 @@ import game.UI;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
-
 import java.util.List;
 
 public class Controller implements UI {
@@ -22,14 +20,12 @@ public class Controller implements UI {
     public Button eight;
     public Button nine;
     private final Board board = new Board(3);
-    public Text gameOver;
     public Label announceResult;
     private PlayerFactory playerTypes = new PlayerFactory(this);
     private List<Player> players = playerTypes.getPlayerTypes("1");
     private Player playerOne = players.get(0);
     private Player playerTwo = players.get(1);
     private Player currentPlayer = playerOne;
-
 
     @Override
     public void askForGameMode() {
@@ -73,28 +69,18 @@ public class Controller implements UI {
     public void displayBoard(List<Mark> grid, int size) {
     }
 
-    private void announceWinner(String winner) {
-        String result;
-        if (winner.equals("Tie")) {
-            result = "Game Over! It's A Tie!";
-        } else {
-            result = String.format("Game Over! %s Won!", winner);
-        }
-        announceResult.setText(result);
-    }
-
     public void makeMove(ActionEvent actionEvent) {
         Button buttonPressed = (Button) actionEvent.getTarget();
-        String move = buttonPressed.getText();
-        int moveNumber = Integer.parseInt(move);
+        int moveNumber = getMoveNumber(buttonPressed);
         board.updateMove(moveNumber - 1, currentPlayer.getMark());
         buttonPressed.setText(String.valueOf(currentPlayer.getMark()));
         switchPlayer(playerOne, playerTwo);
+        checkGameStatus();
+    }
 
-        if (board.gameIsOver()) {
-            Result winner = board.findWinner();
-            announceWinner(winner.getResult());
-        }
+    private int getMoveNumber(Button buttonPressed) {
+        String move = buttonPressed.getText();
+        return Integer.parseInt(move);
     }
 
     private void switchPlayer(Player playerOne, Player playerTwo) {
@@ -103,5 +89,22 @@ public class Controller implements UI {
         } else {
             currentPlayer = playerOne;
         }
+    }
+
+    private void checkGameStatus() {
+        if (board.gameIsOver()) {
+            Result winner = board.findWinner();
+            announceWinner(winner.getResult());
+        }
+    }
+
+    private void announceWinner(String winner) {
+        String result;
+        if (winner.equals("Tie")) {
+            result = "Game Over! It's A Tie!";
+        } else {
+            result = String.format("Game Over! %s Won!", winner);
+        }
+        announceResult.setText(result);
     }
 }

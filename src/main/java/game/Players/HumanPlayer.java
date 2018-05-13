@@ -1,7 +1,5 @@
 package game.Players;
 
-import game.Mark;
-import game.UI;
 import game.Board;
 import game.Mark;
 import game.UI;

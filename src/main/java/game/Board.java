@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
 import static game.Mark.*;
 import static game.Result.TIE;
 import static java.util.stream.Collectors.toList;
