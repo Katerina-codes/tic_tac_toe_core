@@ -13,9 +13,8 @@ public class Computer implements Player {
         this.mark = mark;
     }
 
-    public Board playMove(Board board) {
-        int playerMove = move(board);
-        return board.updateMove(playerMove, mark);
+    public int playMove(Board board) {
+        return move(board);
     }
 
     public Mark getMark() {

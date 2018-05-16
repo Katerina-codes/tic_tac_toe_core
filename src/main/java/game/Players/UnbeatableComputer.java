@@ -23,9 +23,8 @@ public class UnbeatableComputer implements Player {
     }
 
     @Override
-    public Board playMove(Board board) {
-        int move = findBestMove(board, 7, -10, +10, true).get(0);
-        return board.updateMove(move, mark);
+    public int playMove(Board board) {
+        return findBestMove(board, 7, -10, +10, true).get(0);
     }
 
     public List<Integer> findBestMove(Board board, int depth, int alpha, int beta, Boolean maximisingPlayer) {

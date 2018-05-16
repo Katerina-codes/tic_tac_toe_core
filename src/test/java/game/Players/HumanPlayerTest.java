@@ -19,8 +19,6 @@ public class HumanPlayerTest {
         Board board = new Board(3);
         HumanPlayer player = new HumanPlayer(ui, X);
 
-        Board updatedBoard = player.playMove(board);
-
-        assertEquals(X, updatedBoard.valueAt(0));
+        assertEquals(0, player.playMove(board));
     }
 }
