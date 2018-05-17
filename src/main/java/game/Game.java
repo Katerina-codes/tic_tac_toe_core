@@ -54,8 +54,17 @@ public class Game {
     }
 
     private void playNextMove() {
+        int move = getMove();
+        playMove(move);
+    }
+
+    private int getMove() {
         ui.askForMove(currentPlayer.getMark(), this.board.grid);
-        board = currentPlayer.playMove(board);
+        return currentPlayer.playMove(board);
+    }
+
+    public void playMove(int move) {
+        board = board.updateMove(move, currentPlayer.getMark());
     }
 
     private void setPlayers(String gameMode, PlayerFactory playerTypes) {
