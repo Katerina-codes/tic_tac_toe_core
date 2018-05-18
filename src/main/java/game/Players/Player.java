@@ -4,7 +4,7 @@ import game.Board;
 import game.Mark;
 
 public interface Player {
-    Board playMove(Board board);
+    int playMove(Board board);
 
     Mark getMark();
 }

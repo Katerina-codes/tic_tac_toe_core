@@ -9,34 +9,37 @@ public class Game {
 
     private final UI ui;
     private Board board;
-    public Player currentPlayer;
+    private Player currentPlayer;
+    private Player playerOne;
+    private Player playerTwo;
+    private PlayerFactory playerTypes ;
 
     public Game(UI ui, Board board) {
         this.ui = ui;
         this.board = board;
+        this.playerTypes = new PlayerFactory(this.ui);
     }
 
     public void run() {
-        ui.askForGameMode();
-        String gameMode = ui.getUserChoice();
-        PlayerFactory playerTypes = new PlayerFactory(ui);
-        List<Player> players = playerTypes.getPlayerTypes(gameMode);
-
-        Player playerOne = players.get(0);
-        Player playerTwo = players.get(1);
-
-        currentPlayer = playerOne;
+        playerSetUp();
         displayBoard();
 
         while (gameIsNotOver()) {
-            ui.askForMove(currentPlayer.getMark(), this.board.grid);
-            board = currentPlayer.playMove(board);
+            playNextMove();
             displayBoard();
-            switchPlayer(playerOne, playerTwo);
+            switchPlayer();
         }
-        Result result = board.findWinner();
-        ui.announceWinner(result);
+        endResult();
+        playAgain();
+    }
 
+    private void playerSetUp() {
+        String gameMode = getGameMode();
+        setPlayers(gameMode, playerTypes);
+        currentPlayer = playerOne;
+    }
+
+    private void playAgain() {
         if (ui.replay()) {
             ui.askForBoardSize();
             int size = ui.getBoardSize();
@@ -45,7 +48,38 @@ public class Game {
         }
     }
 
-    private void switchPlayer(Player playerOne, Player playerTwo) {
+    private void endResult() {
+        Result result = board.findWinner();
+        ui.announceWinner(result);
+    }
+
+    private void playNextMove() {
+        int move = getMove();
+        playMove(move);
+    }
+
+    private int getMove() {
+        ui.askForMove(currentPlayer.getMark(), this.board.grid);
+        return currentPlayer.playMove(board);
+    }
+
+    public void playMove(int move) {
+        board = board.updateMove(move, currentPlayer.getMark());
+    }
+
+    private void setPlayers(String gameMode, PlayerFactory playerTypes) {
+        List<Player> players = playerTypes.getPlayerTypes(gameMode);
+
+        playerOne = players.get(0);
+        playerTwo = players.get(1);
+    }
+
+    private String getGameMode() {
+        ui.askForGameMode();
+        return ui.getUserChoice();
+    }
+
+    private void switchPlayer() {
         if (currentPlayer == playerOne) {
             currentPlayer = playerTwo;
         } else {

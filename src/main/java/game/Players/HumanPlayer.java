@@ -1,7 +1,5 @@
 package game.Players;
 
-import game.Mark;
-import game.UI;
 import game.Board;
 import game.Mark;
 import game.UI;
@@ -16,9 +14,8 @@ public class HumanPlayer implements Player {
         this.mark = mark;
     }
 
-    public Board playMove(Board board) {
-        int playerMove = getMove(board);
-        return board.updateMove(playerMove, this.mark);
+    public int playMove(Board board) {
+        return getMove(board);
     }
 
     public Mark getMark() {

@@ -21,7 +21,7 @@ public class UnbeatableComputerTest {
                 O, X, X,
                 EMPTY, EMPTY, O));
 
-        assertThat(unbeatableComputer.playMove(board).grid.get(7), is(X));
+        assertThat(unbeatableComputer.playMove(board), is(7));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class UnbeatableComputerTest {
                 X, X, EMPTY,
                 O, O, X,
                 EMPTY, X, O));
-        assertThat(unbeatableComputer.playMove(board).grid.get(2), is(O));
+        assertThat(unbeatableComputer.playMove(board), is(2));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class UnbeatableComputerTest {
                 EMPTY, EMPTY, EMPTY));
         unbeatableComputer.findBestMove(board, 7, -10, +10, true);
 
-        assertThat(unbeatableComputer.playMove(board).grid.get(3), is(O));
+        assertThat(unbeatableComputer.playMove(board), is(3));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class UnbeatableComputerTest {
                 EMPTY, O, O, EMPTY,
                 EMPTY, EMPTY, EMPTY, EMPTY));
 
-        assertThat(unbeatableComputer.playMove(board).grid.get(3), is(X));
+        assertThat(unbeatableComputer.playMove(board), is(3));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class UnbeatableComputerTest {
                 EMPTY, O, O, EMPTY,
                 EMPTY, EMPTY, EMPTY, EMPTY));
 
-        assertThat(unbeatableComputer.playMove(board).grid.get(3), is(O));
+        assertThat(unbeatableComputer.playMove(board), is(3));
     }
 }
