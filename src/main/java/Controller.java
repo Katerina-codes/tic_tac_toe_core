@@ -1,13 +1,12 @@
-import game.Board;
-import game.Mark;
+import game.*;
 import game.Players.Player;
 import game.Players.PlayerFactory;
-import game.Result;
-import game.UI;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class Controller implements UI {
     public Button one;
@@ -19,16 +18,20 @@ public class Controller implements UI {
     public Button seven;
     public Button eight;
     public Button nine;
-    private final Board board = new Board(3);
     public Label announceResult;
+    private Board board = new Board(3);
+    private final Game game = new Game(this, board);
+    public Button HumanVsHuman;
+    public Button HumanVsComputer;
     private PlayerFactory playerTypes = new PlayerFactory(this);
-    private List<Player> players = playerTypes.getPlayerTypes("1");
+    private List<Player> players = playerTypes.getPlayerTypes("5");
     private Player playerOne = players.get(0);
     private Player playerTwo = players.get(1);
     private Player currentPlayer = playerOne;
 
     @Override
     public void askForGameMode() {
+
     }
 
     @Override
@@ -38,6 +41,15 @@ public class Controller implements UI {
 
     @Override
     public void askForMove(Mark playerMark, List<Mark> boardSize) {
+        List<Button> buttons = asList(one, two, three, four, five, six, seven, eight, nine);
+
+        for (int i = 0; i < buttons.size(); i++) {
+            int finalI = i;
+            buttons.get(i).setOnAction(click -> {
+                String move = buttons.get(finalI).getText();
+                game.playMove(Integer.parseInt(move));
+            });
+        }
     }
 
     @Override
@@ -47,7 +59,13 @@ public class Controller implements UI {
 
     @Override
     public void announceWinner(Result winner) {
-
+        String result;
+        if (winner.equals(Result.TIE)) {
+            result = "Game Over! It's A Tie!";
+        } else {
+            result = String.format("Game Over! %s Won!", winner.getResult());
+        }
+        announceResult.setText(result);
     }
 
     @Override
@@ -57,7 +75,7 @@ public class Controller implements UI {
 
     @Override
     public int getBoardSize() {
-        return 0;
+        return 3;
     }
 
     @Override
@@ -67,15 +85,52 @@ public class Controller implements UI {
 
     @Override
     public void displayBoard(List<Mark> grid, int size) {
+        List<Button> buttons = asList(one, two, three, four, five, six, seven, eight, nine);
+        for (int i = 0; i < grid.size(); i++) {
+            if (grid.get(i) == Mark.EMPTY) {
+                buttons.get(i).setText(String.valueOf((i + 1)));
+            } else {
+                buttons.get(i).setText(String.valueOf(grid.get(i)));
+            }
+        }
     }
 
     public void makeMove(ActionEvent actionEvent) {
+        displayBoard(board.grid, 3);
         Button buttonPressed = (Button) actionEvent.getTarget();
         int moveNumber = getMoveNumber(buttonPressed);
-        board.updateMove(moveNumber - 1, currentPlayer.getMark());
-        buttonPressed.setText(String.valueOf(currentPlayer.getMark()));
+        markBoard(buttonPressed, moveNumber);
+        checkGameIsNotOver();
         switchPlayer(playerOne, playerTwo);
-        checkGameStatus();
+
+        int computerMove = currentPlayer.playMove(board);
+        board = board.updateMove(computerMove, currentPlayer.getMark());
+        displayBoard(board.grid, 3);
+        checkGameIsNotOver();
+        switchPlayer(playerOne, playerTwo);
+    }
+
+    private void markBoard(Button buttonPressed, int moveNumber) {
+        board = board.updateMove(moveNumber - 1, currentPlayer.getMark());
+        buttonPressed.setText(String.valueOf(currentPlayer.getMark()));
+    }
+
+    private void checkGameIsNotOver() {
+        if (board.gameIsOver()) {
+            Result winner = board.findWinner();
+            announceWinner(winner);
+        }
+    }
+
+    public void gameMode(ActionEvent actionEvent) {
+        Button blah = (Button) actionEvent.getTarget();
+        if (blah.getId().equals("HumanVsHuman")) {
+            players = playerTypes.getPlayerTypes("1");
+        } else {
+            players = playerTypes.getPlayerTypes("5");
+            playerOne = playerTypes.getPlayerTypes("5").get(0);
+            playerTwo = playerTypes.getPlayerTypes("5").get(1);
+        }
     }
 
     private int getMoveNumber(Button buttonPressed) {
@@ -89,22 +144,5 @@ public class Controller implements UI {
         } else {
             currentPlayer = playerOne;
         }
-    }
-
-    private void checkGameStatus() {
-        if (board.gameIsOver()) {
-            Result winner = board.findWinner();
-            announceWinner(winner.getResult());
-        }
-    }
-
-    private void announceWinner(String winner) {
-        String result;
-        if (winner.equals("Tie")) {
-            result = "Game Over! It's A Tie!";
-        } else {
-            result = String.format("Game Over! %s Won!", winner);
-        }
-        announceResult.setText(result);
     }
 }
