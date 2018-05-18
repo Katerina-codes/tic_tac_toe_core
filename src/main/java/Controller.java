@@ -1,4 +1,5 @@
 import game.*;
+import game.Players.HumanPlayer;
 import game.Players.Player;
 import game.Players.PlayerFactory;
 import javafx.event.ActionEvent;
@@ -103,11 +104,13 @@ public class Controller implements UI {
         checkGameIsNotOver();
         switchPlayer(playerOne, playerTwo);
 
-        int computerMove = currentPlayer.playMove(board);
-        board = board.updateMove(computerMove, currentPlayer.getMark());
-        displayBoard(board.grid, 3);
-        checkGameIsNotOver();
-        switchPlayer(playerOne, playerTwo);
+        if (!(playerTwo instanceof HumanPlayer)) {
+            int computerMove = currentPlayer.playMove(board);
+            board = board.updateMove(computerMove, currentPlayer.getMark());
+            displayBoard(board.grid, 3);
+            checkGameIsNotOver();
+            switchPlayer(playerOne, playerTwo);
+        }
     }
 
     private void markBoard(Button buttonPressed, int moveNumber) {
