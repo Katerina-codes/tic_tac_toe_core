@@ -20,19 +20,21 @@ public class Controller implements UI {
     public Button eight;
     public Button nine;
     public Label announceResult;
+    public Label askForGameMode;
+    public Button start;
+    public Label getGameMode;
     private Board board = new Board(3);
     private final Game game = new Game(this, board);
     public Button HumanVsHuman;
     public Button HumanVsComputer;
     private PlayerFactory playerTypes = new PlayerFactory(this);
-    private List<Player> players = playerTypes.getPlayerTypes("5");
-    private Player playerOne = players.get(0);
-    private Player playerTwo = players.get(1);
-    private Player currentPlayer = playerOne;
+    private Player currentPlayer;
+    private Player playerOne;
+    private Player playerTwo;
 
     @Override
     public void askForGameMode() {
-
+        askForGameMode.setText("Press 1 for Human Vs Human\nEnter 5 for Human Vs Computer");
     }
 
     @Override
@@ -126,14 +128,12 @@ public class Controller implements UI {
     }
 
     public void gameMode(ActionEvent actionEvent) {
-        Button blah = (Button) actionEvent.getTarget();
-        if (blah.getId().equals("HumanVsHuman")) {
-            players = playerTypes.getPlayerTypes("1");
-        } else {
-            players = playerTypes.getPlayerTypes("5");
-            playerOne = playerTypes.getPlayerTypes("5").get(0);
-            playerTwo = playerTypes.getPlayerTypes("5").get(1);
-        }
+        Button gameModeButton = (Button) actionEvent.getTarget();
+        String buttonText = gameModeButton.getText();
+        List<Player> players = playerTypes.getPlayerTypes(buttonText);
+        playerOne = players.get(0);
+        playerTwo = players.get(1);
+        currentPlayer = playerOne;
     }
 
     private int getMoveNumber(Button buttonPressed) {
@@ -147,5 +147,9 @@ public class Controller implements UI {
         } else {
             currentPlayer = playerOne;
         }
+    }
+
+    public void setUp(ActionEvent actionEvent) {
+        getGameMode.setText("Enter 1 for Human Vs Human and 5 for Human Vs Computer");
     }
 }
