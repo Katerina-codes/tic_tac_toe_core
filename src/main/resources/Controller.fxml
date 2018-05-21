@@ -10,8 +10,8 @@
         <Button text="S-T-A-R-T!!!" onAction="#setUp" alignment="BASELINE_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="start"/>
         <Label GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="getGameMode"/>
 
-        <Button text="1" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="HumanVsHuman"/>
-        <Button text="5" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="HumanVsComputer"/>
+        <Button text="8" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="guiPlayerVsguiPlayer"/>
+        <Button text="9" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="guiPlayerVsComputer"/>
 
         <Button text="1" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="one"/>
         <Button text="2" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="2" fx:id="two"/>

@@ -1,4 +1,5 @@
 import game.*;
+import game.Players.GuiPlayer;
 import game.Players.HumanPlayer;
 import game.Players.Player;
 import game.Players.PlayerFactory;
@@ -7,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.util.List;
 
+import static game.Mark.X;
 import static java.util.Arrays.asList;
 
 public class Controller implements UI {
@@ -31,10 +33,11 @@ public class Controller implements UI {
     private Player currentPlayer;
     private Player playerOne;
     private Player playerTwo;
+    GuiPlayer guiPlayer = new GuiPlayer(X);
 
     @Override
     public void askForGameMode() {
-        askForGameMode.setText("Press 1 for Human Vs Human\nEnter 5 for Human Vs Computer");
+        askForGameMode.setText("Press 8 for Human Vs Human\nEnter 9 for Human Vs Computer");
     }
 
     @Override
@@ -57,7 +60,7 @@ public class Controller implements UI {
 
     @Override
     public String getMove(Board board) {
-        return "";
+        return String.valueOf(guiPlayer.currentMove);
     }
 
     @Override
@@ -106,7 +109,7 @@ public class Controller implements UI {
         checkGameIsNotOver();
         switchPlayer(playerOne, playerTwo);
 
-        if (!(playerTwo instanceof HumanPlayer)) {
+        if (!(currentPlayer instanceof GuiPlayer)) {
             int computerMove = currentPlayer.playMove(board);
             board = board.updateMove(computerMove, currentPlayer.getMark());
             displayBoard(board.grid, 3);
@@ -150,6 +153,6 @@ public class Controller implements UI {
     }
 
     public void setUp(ActionEvent actionEvent) {
-        getGameMode.setText("Enter 1 for Human Vs Human and 5 for Human Vs Computer");
+        getGameMode.setText("Enter 8 for Human Vs Human and 9 for Human Vs Computer");
     }
 }
