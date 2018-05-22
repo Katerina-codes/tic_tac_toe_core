@@ -1,10 +1,9 @@
 import game.*;
 import game.Players.GuiPlayer;
-import game.Players.Player;
-import game.Players.PlayerFactory;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 import java.util.List;
 
 import static game.Mark.X;
@@ -28,9 +27,6 @@ public class Controller implements UI {
     private final Game game = new Game(this, board);
     public Button HumanVsHuman;
     public Button HumanVsComputer;
-    private Player currentPlayer;
-    private Player playerOne;
-    private Player playerTwo;
     GuiPlayer guiPlayer = new GuiPlayer(X);
 
     @Override
@@ -105,20 +101,20 @@ public class Controller implements UI {
         int moveNumber = getMoveNumber(buttonPressed);
         markBoard(buttonPressed, moveNumber);
         checkGameIsNotOver();
-        switchPlayer(playerOne, playerTwo);
+        game.switchPlayer();
 
-        if (!(currentPlayer instanceof GuiPlayer)) {
-            int computerMove = currentPlayer.playMove(board);
-            board = board.updateMove(computerMove, currentPlayer.getMark());
+        if (!(game.currentPlayer instanceof GuiPlayer)) {
+            int computerMove = game.currentPlayer.playMove(board);
+            board = board.updateMove(computerMove, game.currentPlayer.getMark());
             displayBoard(board.grid, 3);
             checkGameIsNotOver();
-            switchPlayer(playerOne, playerTwo);
+            game.switchPlayer();
         }
     }
 
     private void markBoard(Button buttonPressed, int moveNumber) {
-        board = board.updateMove(moveNumber - 1, currentPlayer.getMark());
-        buttonPressed.setText(String.valueOf(currentPlayer.getMark()));
+        board = board.updateMove(moveNumber - 1, game.currentPlayer.getMark());
+        buttonPressed.setText(String.valueOf(game.currentPlayer.getMark()));
     }
 
     private void checkGameIsNotOver() {
@@ -132,22 +128,11 @@ public class Controller implements UI {
         Button gameModeButton = (Button) actionEvent.getTarget();
         String gameMode = gameModeButton.getText();
         game.receiveGameMode(gameMode);
-        playerOne = game.playerOne;
-        playerTwo = game.playerTwo;
-        currentPlayer = game.currentPlayer;
     }
 
     private int getMoveNumber(Button buttonPressed) {
         String move = buttonPressed.getText();
         return Integer.parseInt(move);
-    }
-
-    private void switchPlayer(Player playerOne, Player playerTwo) {
-        if (currentPlayer == playerOne) {
-            currentPlayer = playerTwo;
-        } else {
-            currentPlayer = playerOne;
-        }
     }
 
     public void setUp(ActionEvent actionEvent) {

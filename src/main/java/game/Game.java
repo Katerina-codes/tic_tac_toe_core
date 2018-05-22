@@ -9,7 +9,7 @@ public class Game {
 
     private final UI ui;
     private Board board;
-    private Player currentPlayer;
+    public Player currentPlayer;
     public Player playerOne;
     public Player playerTwo;
     private PlayerFactory playerTypes ;
@@ -79,7 +79,7 @@ public class Game {
         return ui.getUserChoice();
     }
 
-    private void switchPlayer() {
+    public void switchPlayer() {
         if (currentPlayer == playerOne) {
             currentPlayer = playerTwo;
         } else {
