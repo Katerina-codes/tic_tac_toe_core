@@ -1,6 +1,5 @@
 import game.*;
 import game.Players.GuiPlayer;
-import game.Players.HumanPlayer;
 import game.Players.Player;
 import game.Players.PlayerFactory;
 import javafx.event.ActionEvent;
@@ -29,7 +28,6 @@ public class Controller implements UI {
     private final Game game = new Game(this, board);
     public Button HumanVsHuman;
     public Button HumanVsComputer;
-    private PlayerFactory playerTypes = new PlayerFactory(this);
     private Player currentPlayer;
     private Player playerOne;
     private Player playerTwo;
@@ -132,11 +130,11 @@ public class Controller implements UI {
 
     public void gameMode(ActionEvent actionEvent) {
         Button gameModeButton = (Button) actionEvent.getTarget();
-        String buttonText = gameModeButton.getText();
-        List<Player> players = playerTypes.getPlayerTypes(buttonText);
-        playerOne = players.get(0);
-        playerTwo = players.get(1);
-        currentPlayer = playerOne;
+        String gameMode = gameModeButton.getText();
+        game.receiveGameMode(gameMode);
+        playerOne = game.playerOne;
+        playerTwo = game.playerTwo;
+        currentPlayer = game.currentPlayer;
     }
 
     private int getMoveNumber(Button buttonPressed) {

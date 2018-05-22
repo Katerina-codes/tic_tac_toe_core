@@ -10,8 +10,8 @@ public class Game {
     private final UI ui;
     private Board board;
     private Player currentPlayer;
-    private Player playerOne;
-    private Player playerTwo;
+    public Player playerOne;
+    public Player playerTwo;
     private PlayerFactory playerTypes ;
 
     public Game(UI ui, Board board) {
@@ -21,19 +21,20 @@ public class Game {
     }
 
     public void run() {
-        playerSetUp();
         displayBoard();
-
         while (gameIsNotOver()) {
             playNextMove();
             displayBoard();
             switchPlayer();
         }
+    }
+
+    public void endGame() {
         endResult();
         playAgain();
     }
 
-    private void playerSetUp() {
+    public void playerSetUp() {
         String gameMode = getGameMode();
         setPlayers(gameMode, playerTypes);
         currentPlayer = playerOne;
@@ -69,7 +70,6 @@ public class Game {
 
     private void setPlayers(String gameMode, PlayerFactory playerTypes) {
         List<Player> players = playerTypes.getPlayerTypes(gameMode);
-
         playerOne = players.get(0);
         playerTwo = players.get(1);
     }
@@ -93,5 +93,10 @@ public class Game {
 
     private void displayBoard() {
         ui.displayBoard(this.board.grid, this.board.size);
+    }
+
+    public void receiveGameMode(String gameMode) {
+        setPlayers(gameMode, playerTypes);
+        currentPlayer = playerOne;
     }
 }
