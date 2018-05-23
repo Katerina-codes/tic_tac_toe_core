@@ -9,19 +9,20 @@
     <GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="8" vgap="8">
         <Button text="S-T-A-R-T!!!" onAction="#setUp" alignment="BASELINE_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="start"/>
         <Label GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="getGameMode"/>
+        <Label GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="movePrompt"/>
 
-        <Button text="8" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="guiPlayerVsguiPlayer"/>
-        <Button text="9" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="guiPlayerVsComputer"/>
+        <Button text="8" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="0" fx:id="guiPlayerVsguiPlayer"/>
+        <Button text="9" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="guiPlayerVsComputer"/>
 
-        <Button text="1" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="one"/>
-        <Button text="2" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="2" fx:id="two"/>
-        <Button text="3" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="3" fx:id="three"/>
-        <Button text="4" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="1" fx:id="four"/>
-        <Button text="5" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="2" fx:id="five"/>
-        <Button text="6" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="3" fx:id="six"/>
-        <Button text="7" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="1" fx:id="seven"/>
-        <Button text="8" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="2" fx:id="eight"/>
-        <Button text="9" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="3" fx:id="nine"/>
+        <Button text="1" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="1" fx:id="one"/>
+        <Button text="2" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="2" fx:id="two"/>
+        <Button text="3" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="3" fx:id="three"/>
+        <Button text="4" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="1" fx:id="four"/>
+        <Button text="5" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="2" fx:id="five"/>
+        <Button text="6" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="3" fx:id="six"/>
+        <Button text="7" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="1" fx:id="seven"/>
+        <Button text="8" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="2" fx:id="eight"/>
+        <Button text="9" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="3" fx:id="nine"/>
         <Label GridPane.rowIndex="12" GridPane.columnIndex="0" fx:id="announceResult"/>
     </GridPane>
 </AnchorPane>

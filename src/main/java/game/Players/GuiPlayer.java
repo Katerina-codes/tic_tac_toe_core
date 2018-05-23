@@ -24,11 +24,17 @@ public class GuiPlayer implements Player {
 
     @Override
     public int playMove(Board board) {
+        moveSet = false;
         return currentMove;
     }
 
     @Override
     public Mark getMark() {
         return mark;
+    }
+
+    public void receiveMove(int moveNumber) {
+        moveSet = true;
+        currentMove = moveNumber;
     }
 }

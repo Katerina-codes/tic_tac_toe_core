@@ -20,14 +20,15 @@ public class Controller implements UI {
     public Button eight;
     public Button nine;
     public Label announceResult;
-    public Label askForGameMode;
+    private Label askForGameMode;
     public Button start;
     public Label getGameMode;
+    public Label movePrompt;
+    public Button guiPlayerVsguiPlayer;
+    public Button guiPlayerVsComputer;
     private Board board = new Board(3);
     private final Game game = new Game(this, board);
-    public Button HumanVsHuman;
-    public Button HumanVsComputer;
-    GuiPlayer guiPlayer = new GuiPlayer(X);
+    private GuiPlayer guiPlayer = new GuiPlayer(X);
 
     @Override
     public void askForGameMode() {
@@ -41,15 +42,8 @@ public class Controller implements UI {
 
     @Override
     public void askForMove(Mark playerMark, List<Mark> boardSize) {
-        List<Button> buttons = asList(one, two, three, four, five, six, seven, eight, nine);
-
-        for (int i = 0; i < buttons.size(); i++) {
-            int finalI = i;
-            buttons.get(i).setOnAction(click -> {
-                String move = buttons.get(finalI).getText();
-                game.playMove(Integer.parseInt(move));
-            });
-        }
+        String askForMove = String.format("Player %s, play a move!", playerMark);
+        movePrompt.setText(askForMove);
     }
 
     @Override
@@ -75,7 +69,7 @@ public class Controller implements UI {
 
     @Override
     public int getBoardSize() {
-        return 3;
+        return board.size;
     }
 
     @Override
@@ -95,32 +89,34 @@ public class Controller implements UI {
         }
     }
 
-    public void makeMove(ActionEvent actionEvent) {
-        displayBoard(board.grid, 3);
-        Button buttonPressed = (Button) actionEvent.getTarget();
-        int moveNumber = getMoveNumber(buttonPressed);
-        markBoard(buttonPressed, moveNumber);
-        checkGameIsNotOver();
-        game.switchPlayer();
 
-        if (!(game.currentPlayer instanceof GuiPlayer)) {
-            int computerMove = game.currentPlayer.playMove(board);
-            board = board.updateMove(computerMove, game.currentPlayer.getMark());
-            displayBoard(board.grid, 3);
-            checkGameIsNotOver();
-            game.switchPlayer();
-        }
+    public void setUp() {
+        getGameMode.setText("Enter 8 for Human Vs Human and 9 for Human Vs Computer");
     }
 
-    private void markBoard(Button buttonPressed, int moveNumber) {
-        board = board.updateMove(moveNumber - 1, game.currentPlayer.getMark());
+
+    public void makeMove(ActionEvent actionEvent) {
+        int moveNumber = markBoard(actionEvent);
+        game.playMove(moveNumber);
+        guiPlayer.receiveMove(moveNumber);
+        checkGameIsNotOver();
+    }
+
+    private int markBoard(ActionEvent actionEvent) {
+        askForMove(game.currentPlayer.getMark(), board.grid);
+        Button buttonPressed = (Button) actionEvent.getTarget();
+        int moveNumber = getMoveNumber(buttonPressed) - 1;
         buttonPressed.setText(String.valueOf(game.currentPlayer.getMark()));
+        return moveNumber;
     }
 
     private void checkGameIsNotOver() {
         if (board.gameIsOver()) {
             Result winner = board.findWinner();
             announceWinner(winner);
+        } else {
+            game.switchPlayer();
+            game.run();
         }
     }
 
@@ -133,9 +129,5 @@ public class Controller implements UI {
     private int getMoveNumber(Button buttonPressed) {
         String move = buttonPressed.getText();
         return Integer.parseInt(move);
-    }
-
-    public void setUp(ActionEvent actionEvent) {
-        getGameMode.setText("Enter 8 for Human Vs Human and 9 for Human Vs Computer");
     }
 }

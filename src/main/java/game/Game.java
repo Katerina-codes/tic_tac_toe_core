@@ -22,11 +22,13 @@ public class Game {
 
     public void run() {
         displayBoard();
-        while (gameIsNotOver()) {
+        while (gameIsNotOver() && currentPlayer.hasMove()) {
             playNextMove();
             displayBoard();
             switchPlayer();
+
         }
+        endGame();
     }
 
     public void endGame() {
@@ -87,7 +89,7 @@ public class Game {
         }
     }
 
-    private boolean gameIsNotOver() {
+    public boolean gameIsNotOver() {
         return !this.board.gameIsOver();
     }
 

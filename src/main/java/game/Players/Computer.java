@@ -21,6 +21,10 @@ public class Computer implements Player {
         return mark;
     }
 
+    public boolean hasMove() {
+        return true;
+    }
+
     public int move(Board board) {
         List<Integer> possibleMoves = board.availableMoves();
         return possibleMoves.get(0);
