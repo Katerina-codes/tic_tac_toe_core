@@ -1,8 +1,10 @@
 import game.*;
 import game.Players.GuiPlayer;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -44,6 +46,15 @@ public class Controller implements UI {
     public void askForMove(Mark playerMark, List<Mark> boardSize) {
         String askForMove = String.format("Player %s, play a move!", playerMark);
         movePrompt.setText(askForMove);
+        displayThenRemovePrompt();
+    }
+
+    private void displayThenRemovePrompt() {
+        PauseTransition visibleText;
+        movePrompt.setVisible(true);
+        visibleText = new PauseTransition(Duration.seconds(1));
+        visibleText.setOnFinished(event -> movePrompt.setVisible(false));
+        visibleText.play();
     }
 
     @Override
@@ -103,7 +114,6 @@ public class Controller implements UI {
     }
 
     private int markBoard(ActionEvent actionEvent) {
-        askForMove(game.currentPlayer.getMark(), board.grid);
         Button buttonPressed = (Button) actionEvent.getTarget();
         int moveNumber = getMoveNumber(buttonPressed) - 1;
         buttonPressed.setText(String.valueOf(game.currentPlayer.getMark()));
