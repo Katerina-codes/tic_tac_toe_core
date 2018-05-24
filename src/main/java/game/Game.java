@@ -52,8 +52,14 @@ public class Game {
     }
 
     private void endResult() {
-        Result result = board.findResult();
-        ui.announceWinner(result);
+        Result gameStatus = board.findResult();
+        if (gameIsOver(gameStatus)) {
+            ui.announceGameStatus(gameStatus);
+        }
+    }
+
+    private boolean gameIsOver(Result result) {
+        return !result.equals(Result.GAME_IN_PROGRESS);
     }
 
     private void playNextMove() {

@@ -63,7 +63,7 @@ public class Controller implements UI {
     }
 
     @Override
-    public void announceWinner(Result result) {
+    public void announceGameStatus(Result result) {
         String verdict;
         if (result.equals(Result.TIE)) {
             verdict = "Game Over! It's A Tie!";
@@ -123,7 +123,7 @@ public class Controller implements UI {
     private void checkGameIsNotOver() {
         if (board.gameIsOver()) {
             Result winner = board.findResult();
-            announceWinner(winner);
+            announceGameStatus(winner);
         } else {
             game.switchPlayer();
             game.run();

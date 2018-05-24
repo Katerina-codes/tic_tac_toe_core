@@ -24,7 +24,7 @@ public interface UI {
 
     void displayBoard(List<Mark> rows, int size);
 
-    void announceWinner(Result winner);
+    void announceGameStatus(Result winner);
 
     boolean replay();
 

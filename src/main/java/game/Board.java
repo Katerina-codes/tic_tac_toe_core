@@ -57,7 +57,7 @@ public class Board {
         } else if (playerHasWon(O)) {
             return Result.PLAYER_TWO_WIN;
         } else {
-            throw new RuntimeException("No winner.");
+            return Result.GAME_IN_PROGRESS;
         }
 
     }

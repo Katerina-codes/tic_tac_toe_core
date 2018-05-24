@@ -69,7 +69,7 @@ public class FakeCommandLineUI implements UI {
     }
 
     @Override
-    public void announceWinner(Result winner) {
+    public void announceGameStatus(Result winner) {
         this.announceWinnerWasCalled = true;
     }
 

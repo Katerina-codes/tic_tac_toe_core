@@ -1,4 +1,5 @@
 import game.Board;
+import game.CommandLineUI;
 import game.Game;
 
 public class GameRunner {
