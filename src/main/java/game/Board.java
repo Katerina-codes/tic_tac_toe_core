@@ -49,7 +49,7 @@ public class Board {
         return range(0, this.grid.size()).filter(index -> this.grid.get(index).equals(EMPTY)).boxed().collect(toList());
     }
 
-    public Result findResult() {
+    public Result gameStatus() {
         if (gameIsTied()) {
             return TIE;
         } else if (playerHasWon(X)) {

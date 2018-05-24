@@ -122,7 +122,7 @@ public class Controller implements UI {
 
     private void checkGameIsNotOver() {
         if (board.gameIsOver()) {
-            Result winner = board.findResult();
+            Result winner = board.gameStatus();
             announceGameStatus(winner);
         } else {
             game.switchPlayer();

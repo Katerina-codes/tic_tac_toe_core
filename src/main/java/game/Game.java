@@ -26,7 +26,6 @@ public class Game {
             playNextMove();
             displayBoard();
             switchPlayer();
-
         }
         endGame();
     }
@@ -52,7 +51,7 @@ public class Game {
     }
 
     private void endResult() {
-        Result gameStatus = board.findResult();
+        Result gameStatus = board.gameStatus();
         if (gameIsOver(gameStatus)) {
             ui.announceGameStatus(gameStatus);
         }

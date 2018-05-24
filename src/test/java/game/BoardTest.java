@@ -194,21 +194,21 @@ public class BoardTest {
     public void boardAnnouncesResultOfPlayerOneWin() {
         Board board = new Board(3, asList(X, O, EMPTY, O, X, EMPTY, EMPTY, EMPTY, X));
 
-        assertEquals("X", board.findResult().getResult());
+        assertEquals("X", board.gameStatus().getResult());
     }
 
     @Test
     public void scoresATie() {
         Board board = new Board(3, asList(O, X, X, X, O, O, X, O, X));
 
-        assertEquals("Tie", board.findResult().getResult());
+        assertEquals("Tie", board.gameStatus().getResult());
     }
 
     @Test
     public void statesGameIsInProgress() {
     Board board = new Board(3, asList(X, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY));
 
-        assertEquals("The game is still in progress!", board.findResult().getResult());
+        assertEquals("The game is still in progress!", board.gameStatus().getResult());
     }
 }
 
