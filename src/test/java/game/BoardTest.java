@@ -62,7 +62,7 @@ public class BoardTest {
     @Test(expected = RuntimeException.class)
     public void throwsExceptionWhenFindWinnerCalledBeforeEndOfGame() {
         Board board = new Board();
-        board.findWinner();
+        board.findResult();
     }
 
     @Test
@@ -200,14 +200,14 @@ public class BoardTest {
     public void boardAnnouncesResultOfPlayerOneWin() {
         Board board = new Board(3, asList(X, O, EMPTY, O, X, EMPTY, EMPTY, EMPTY, X));
 
-        assertEquals("X", board.findWinner().getResult());
+        assertEquals("X", board.findResult().getResult());
     }
 
     @Test
     public void scoresATie() {
         Board board = new Board(3, asList(O, X, X, X, O, O, X, O, X));
 
-        assertEquals("Tie", board.findWinner().getResult());
+        assertEquals("Tie", board.findResult().getResult());
     }
 }
 

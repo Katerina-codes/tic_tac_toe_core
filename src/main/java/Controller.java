@@ -63,14 +63,14 @@ public class Controller implements UI {
     }
 
     @Override
-    public void announceWinner(Result winner) {
-        String result;
-        if (winner.equals(Result.TIE)) {
-            result = "Game Over! It's A Tie!";
+    public void announceWinner(Result result) {
+        String verdict;
+        if (result.equals(Result.TIE)) {
+            verdict = "Game Over! It's A Tie!";
         } else {
-            result = String.format("Game Over! %s Won!", winner.getResult());
+            verdict = String.format("Game Over! %s Won!", result.getResult());
         }
-        announceResult.setText(result);
+        announceResult.setText(verdict);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Controller implements UI {
 
     private void checkGameIsNotOver() {
         if (board.gameIsOver()) {
-            Result winner = board.findWinner();
+            Result winner = board.findResult();
             announceWinner(winner);
         } else {
             game.switchPlayer();

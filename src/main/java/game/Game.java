@@ -10,8 +10,8 @@ public class Game {
     private final UI ui;
     private Board board;
     public Player currentPlayer;
-    public Player playerOne;
-    public Player playerTwo;
+    private Player playerOne;
+    private Player playerTwo;
     private PlayerFactory playerTypes ;
 
     public Game(UI ui, Board board) {
@@ -52,7 +52,7 @@ public class Game {
     }
 
     private void endResult() {
-        Result result = board.findWinner();
+        Result result = board.findResult();
         ui.announceWinner(result);
     }
 
