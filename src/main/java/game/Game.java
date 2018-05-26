@@ -94,7 +94,7 @@ public class Game {
         }
     }
 
-    public boolean gameIsNotOver() {
+    private boolean gameIsNotOver() {
         return !this.board.gameIsOver();
     }
 

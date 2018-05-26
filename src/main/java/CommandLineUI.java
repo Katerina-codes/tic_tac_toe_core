@@ -98,6 +98,11 @@ public class CommandLineUI implements UI {
         output.println(formattedRows);
     }
 
+    @Override
+    public void announceGameStatus(Result winner) {
+
+    }
+
     public void announceWinner(Result result) {
         if (result.equals(Result.TIE)) {
             output.println("It's a tie!");

@@ -9,4 +9,6 @@ public interface Player {
     Mark getMark();
 
     boolean hasMove();
+
+    void receiveMove(int moveNumber);
 }

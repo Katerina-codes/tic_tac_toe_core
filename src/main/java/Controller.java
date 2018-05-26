@@ -100,34 +100,8 @@ public class Controller implements UI {
         }
     }
 
-
     public void setUp() {
         getGameMode.setText("Enter 8 for Human Vs Human and 9 for Human Vs Computer");
-    }
-
-
-    public void makeMove(ActionEvent actionEvent) {
-        int moveNumber = markBoard(actionEvent);
-        game.playMove(moveNumber);
-        guiPlayer.receiveMove(moveNumber);
-        checkGameIsNotOver();
-    }
-
-    private int markBoard(ActionEvent actionEvent) {
-        Button buttonPressed = (Button) actionEvent.getTarget();
-        int moveNumber = getMoveNumber(buttonPressed) - 1;
-        buttonPressed.setText(String.valueOf(game.currentPlayer.getMark()));
-        return moveNumber;
-    }
-
-    private void checkGameIsNotOver() {
-        if (board.gameIsOver()) {
-            Result winner = board.gameStatus();
-            announceGameStatus(winner);
-        } else {
-            game.switchPlayer();
-            game.run();
-        }
     }
 
     public void gameMode(ActionEvent actionEvent) {
@@ -136,8 +110,15 @@ public class Controller implements UI {
         game.receiveGameMode(gameMode);
     }
 
-    private int getMoveNumber(Button buttonPressed) {
+    public void makeMove(ActionEvent actionEvent) {
+        int moveNumber = getMoveNumber(actionEvent);
+        game.currentPlayer.receiveMove(moveNumber);
+        game.run();
+    }
+
+    private int getMoveNumber(ActionEvent actionEvent) {
+        Button buttonPressed = (Button) actionEvent.getTarget();
         String move = buttonPressed.getText();
-        return Integer.parseInt(move);
+        return Integer.parseInt(move) - 1;
     }
 }

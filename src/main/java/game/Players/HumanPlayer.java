@@ -26,6 +26,11 @@ public class HumanPlayer implements Player {
         return true;
     }
 
+    @Override
+    public void receiveMove(int moveNumber) {
+
+    }
+
     private Integer getMove(Board board) {
         String userMove = ui.getMove(board);
         return Integer.parseInt(String.valueOf(userMove)) - 1;
