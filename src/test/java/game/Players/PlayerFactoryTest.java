@@ -74,4 +74,20 @@ public class PlayerFactoryTest {
         assertTrue(players.get(0) instanceof UnbeatableComputer);
         assertTrue(players.get(1) instanceof UnbeatableComputer);
     }
+
+    @Test
+    public void createsTwoGuiPlayers() {
+        List<Player> players = playerTypes.getPlayerTypes(UI.GUI_PLAYER_VS_GUI_PLAYER);
+
+        assertTrue(players.get(0) instanceof GuiPlayer);
+        assertTrue(players.get(1) instanceof GuiPlayer);
+    }
+
+    @Test
+    public void createsGuiAndUnbeatablePlayers() {
+        List<Player> players = playerTypes.getPlayerTypes(UI.GUI_PLAYER_VS_UNBEATABLE_PLAYER);
+
+        assertTrue(players.get(0) instanceof GuiPlayer);
+        assertTrue(players.get(1) instanceof UnbeatableComputer);
+    }
 }

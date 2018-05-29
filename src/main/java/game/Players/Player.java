@@ -7,4 +7,6 @@ public interface Player {
     int playMove(Board board);
 
     Mark getMark();
+
+    boolean hasMove();
 }

@@ -15,12 +15,14 @@ public class GameTest {
     @Test
     public void runsTheGame() {
         List moves = asList(1, 4, 2, 5, 3);
-        List userChoices = asList(false);
+        List userChoices = asList(false, false);
         FakeCommandLineUI inputOutput = new FakeCommandLineUI(moves, userChoices);
         Board board = new Board(3);
         Game game = new Game(inputOutput, board);
 
+        game.playerSetUp();
         game.run();
+        game.endGame();
 
         assertTrue(inputOutput.askForGameModeWasCalled());
         assertTrue(inputOutput.getGameModeWasCalled());
@@ -39,6 +41,7 @@ public class GameTest {
         Board board = new Board(3);
         Game game = new Game(inputOutput, board);
 
+        game.playerSetUp();
         game.run();
 
         assertEquals(asList(Mark.X, Mark.X, Mark.X, Mark.O, Mark.O, EMPTY, EMPTY, EMPTY, EMPTY), board.grid);
@@ -47,12 +50,14 @@ public class GameTest {
     @Test
     public void playerCanPlayAgain() {
         List moves = asList(1, 4, 2, 5, 3, 1, 4, 2, 5, 3);
-        List userChoices = asList(true, false);
+        List userChoices = asList(true, false, false);
         FakeCommandLineUI inputOutput = new FakeCommandLineUI(moves, userChoices);
         Board board = new Board(3);
         Game game = new Game(inputOutput, board);
 
+        game.playerSetUp();
         game.run();
+        game.endGame();
 
         assertTrue(inputOutput.replayWasCalled());
     }
