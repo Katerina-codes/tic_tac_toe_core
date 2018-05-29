@@ -5,9 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
-
 import java.util.List;
-
 import static game.Mark.X;
 import static java.util.Arrays.asList;
 
@@ -22,19 +20,51 @@ public class Controller implements UI {
     public Button eight;
     public Button nine;
     public Label announceResult;
-    private Label askForGameMode;
     public Button start;
     public Label getGameMode;
     public Label movePrompt;
-    public Button guiPlayerVsguiPlayer;
+    public Button guiPlayerVsGuiPlayer;
     public Button guiPlayerVsComputer;
+    public Button computerVsGuiPlayer;
     private Board board = new Board(3);
     private final Game game = new Game(this, board);
     private GuiPlayer guiPlayer = new GuiPlayer(X);
 
     @Override
+    public int getBoardSize() {
+        return board.size;
+    }
+
+    @Override
+    public void askForBoardSize() {
+
+    }
+
+    public void setUp() {
+        askForGameMode();
+    }
+
+    @Override
     public void askForGameMode() {
-        askForGameMode.setText("Press 8 for Human Vs Human\nEnter 9 for Human Vs Computer");
+        getGameMode.setText("Press 8 for Human Vs Human\nPress 9 for Human Vs Computer\nPress 10 for Computer Vs Human");
+    }
+
+    public void gameMode(ActionEvent actionEvent) {
+        Button gameModeButton = (Button) actionEvent.getTarget();
+        String gameMode = gameModeButton.getText();
+        game.receiveGameMode(gameMode);
+    }
+
+    @Override
+    public void displayBoard(List<Mark> grid, int size) {
+        List<Button> buttons = asList(one, two, three, four, five, six, seven, eight, nine);
+        for (int i = 0; i < grid.size(); i++) {
+            if (grid.get(i) == Mark.EMPTY) {
+                buttons.get(i).setText(String.valueOf((i + 1)));
+            } else {
+                buttons.get(i).setText(String.valueOf(grid.get(i)));
+            }
+        }
     }
 
     @Override
@@ -46,15 +76,21 @@ public class Controller implements UI {
     public void askForMove(Mark playerMark, List<Mark> boardSize) {
         String askForMove = String.format("Player %s, play a move!", playerMark);
         movePrompt.setText(askForMove);
-        displayThenRemovePrompt();
+        displayThenRemoveMovePrompt();
     }
 
-    private void displayThenRemovePrompt() {
+    private void displayThenRemoveMovePrompt() {
         PauseTransition visibleText;
         movePrompt.setVisible(true);
         visibleText = new PauseTransition(Duration.seconds(1));
         visibleText.setOnFinished(event -> movePrompt.setVisible(false));
         visibleText.play();
+    }
+
+    public void makeMove(ActionEvent actionEvent) {
+        int moveNumber = getMoveNumber(actionEvent);
+        game.currentPlayer.receiveMove(moveNumber);
+        game.run();
     }
 
     @Override
@@ -76,44 +112,6 @@ public class Controller implements UI {
     @Override
     public boolean replay() {
         return false;
-    }
-
-    @Override
-    public int getBoardSize() {
-        return board.size;
-    }
-
-    @Override
-    public void askForBoardSize() {
-
-    }
-
-    @Override
-    public void displayBoard(List<Mark> grid, int size) {
-        List<Button> buttons = asList(one, two, three, four, five, six, seven, eight, nine);
-        for (int i = 0; i < grid.size(); i++) {
-            if (grid.get(i) == Mark.EMPTY) {
-                buttons.get(i).setText(String.valueOf((i + 1)));
-            } else {
-                buttons.get(i).setText(String.valueOf(grid.get(i)));
-            }
-        }
-    }
-
-    public void setUp() {
-        getGameMode.setText("Enter 8 for Human Vs Human and 9 for Human Vs Computer");
-    }
-
-    public void gameMode(ActionEvent actionEvent) {
-        Button gameModeButton = (Button) actionEvent.getTarget();
-        String gameMode = gameModeButton.getText();
-        game.receiveGameMode(gameMode);
-    }
-
-    public void makeMove(ActionEvent actionEvent) {
-        int moveNumber = getMoveNumber(actionEvent);
-        game.currentPlayer.receiveMove(moveNumber);
-        game.run();
     }
 
     private int getMoveNumber(ActionEvent actionEvent) {

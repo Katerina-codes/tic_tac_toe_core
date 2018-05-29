@@ -11,8 +11,9 @@
         <Label GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="getGameMode"/>
         <Label GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="movePrompt"/>
 
-        <Button text="8" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="0" fx:id="guiPlayerVsguiPlayer"/>
+        <Button text="8" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="0" fx:id="guiPlayerVsGuiPlayer"/>
         <Button text="9" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="guiPlayerVsComputer"/>
+        <Button text="10" onAction="#gameMode" alignment="BASELINE_LEFT" GridPane.rowIndex="3" GridPane.columnIndex="2" fx:id="computerVsGuiPlayer"/>
 
         <Button text="1" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="1" fx:id="one"/>
         <Button text="2" onAction="#makeMove" alignment="BASELINE_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="2" fx:id="two"/>

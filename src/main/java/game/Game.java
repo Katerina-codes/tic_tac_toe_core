@@ -105,5 +105,8 @@ public class Game {
     public void receiveGameMode(String gameMode) {
         setPlayers(gameMode, playerTypes);
         currentPlayer = playerOne;
+        if (gameMode.equals(UI.UNBEATABLE_PLAYER_VS_GUI_PLAYER)) {
+           run();
+        }
     }
 }
