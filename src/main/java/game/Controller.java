@@ -1,15 +1,19 @@
-import game.*;
+package game;
+
 import game.Players.GuiPlayer;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
+
 import java.util.List;
+
 import static game.Mark.X;
 import static java.util.Arrays.asList;
 
 public class Controller implements UI {
+    private Game game;
     public Button one;
     public Button two;
     public Button three;
@@ -27,8 +31,15 @@ public class Controller implements UI {
     public Button guiPlayerVsComputer;
     public Button computerVsGuiPlayer;
     private Board board = new Board(3);
-    private final Game game = new Game(this, board);
     private GuiPlayer guiPlayer = new GuiPlayer(X);
+
+    public Controller(Game game) {
+        this.game = game;
+    }
+
+    public Controller() {
+        this.game = new Game(this, board);
+    }
 
     @Override
     public int getBoardSize() {
@@ -118,5 +129,9 @@ public class Controller implements UI {
         Button buttonPressed = (Button) actionEvent.getTarget();
         String move = buttonPressed.getText();
         return Integer.parseInt(move) - 1;
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 }

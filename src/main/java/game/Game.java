@@ -8,7 +8,7 @@ import java.util.List;
 public class Game {
 
     private final UI ui;
-    private Board board;
+    public Board board;
     public Player currentPlayer;
     private Player playerOne;
     private Player playerTwo;
