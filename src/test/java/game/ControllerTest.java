@@ -1,5 +1,6 @@
 package game;
 
+import game.Players.GuiPlayer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,6 +42,17 @@ public class ControllerTest extends ApplicationTest {
 
         assertTrue(game.board.grid.get(0).equals(Mark.X));
     }
+
+   @Test
+   public void gameModeRetrievedAndSet() {
+       AnchorPane rootNode = (AnchorPane) scene.getRoot();
+       Button gameModeButton = from(rootNode).lookup("#guiPlayerVsGuiPlayer").query();
+
+       clickOn(gameModeButton);
+       
+       assertTrue(game.playerOne instanceof GuiPlayer);
+       assertTrue(game.playerTwo instanceof GuiPlayer);
+   }
 
     private FXMLLoader rootSetup() {
         return new FXMLLoader(getClass().getResource("/Controller.fxml"));

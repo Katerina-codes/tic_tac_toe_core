@@ -10,8 +10,8 @@ public class Game {
     private final UI ui;
     public Board board;
     public Player currentPlayer;
-    private Player playerOne;
-    private Player playerTwo;
+    public Player playerOne;
+    public Player playerTwo;
     private PlayerFactory playerTypes ;
 
     public Game(UI ui, Board board) {
