@@ -25,11 +25,6 @@ public class Computer implements Player {
         return true;
     }
 
-    @Override
-    public void receiveMove(int moveNumber) {
-
-    }
-
     public int move(Board board) {
         List<Integer> possibleMoves = board.availableMoves();
         return possibleMoves.get(0);

@@ -100,7 +100,8 @@ public class Controller implements UI {
 
     public void makeMove(ActionEvent actionEvent) {
         int moveNumber = getMoveNumber(actionEvent);
-        game.currentPlayer.receiveMove(moveNumber);
+        GuiPlayer player = (GuiPlayer) game.currentPlayer;
+        player.receiveMove(moveNumber);
         game.run();
     }
 

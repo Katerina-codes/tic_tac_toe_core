@@ -10,5 +10,5 @@ public interface Player {
 
     boolean hasMove();
 
-    void receiveMove(int moveNumber);
+//    void receiveMove(int moveNumber);
 }
