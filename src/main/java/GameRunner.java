@@ -12,6 +12,5 @@ public class GameRunner {
 
         game.playerSetUp();
         game.run();
-        game.endGame();
     }
 }

@@ -49,7 +49,7 @@ public class Board {
         return range(0, this.grid.size()).filter(index -> this.grid.get(index).equals(EMPTY)).boxed().collect(toList());
     }
 
-    public Result findWinner() {
+    public Result gameStatus() {
         if (gameIsTied()) {
             return TIE;
         } else if (playerHasWon(X)) {
@@ -57,7 +57,7 @@ public class Board {
         } else if (playerHasWon(O)) {
             return Result.PLAYER_TWO_WIN;
         } else {
-            throw new RuntimeException("No winner.");
+            return Result.GAME_IN_PROGRESS;
         }
 
     }

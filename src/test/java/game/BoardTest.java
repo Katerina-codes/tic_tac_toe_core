@@ -59,12 +59,6 @@ public class BoardTest {
         assertFalse(board.hasAvailableMoves());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void throwsExceptionWhenFindWinnerCalledBeforeEndOfGame() {
-        Board board = new Board();
-        board.findWinner();
-    }
-
     @Test
     public void canScoreARowWinOnThreeByThree() {
         Board board = new Board(3, asList(
@@ -200,14 +194,21 @@ public class BoardTest {
     public void boardAnnouncesResultOfPlayerOneWin() {
         Board board = new Board(3, asList(X, O, EMPTY, O, X, EMPTY, EMPTY, EMPTY, X));
 
-        assertEquals("X", board.findWinner().getResult());
+        assertEquals("X", board.gameStatus().getResult());
     }
 
     @Test
     public void scoresATie() {
         Board board = new Board(3, asList(O, X, X, X, O, O, X, O, X));
 
-        assertEquals("Tie", board.findWinner().getResult());
+        assertEquals("Tie", board.gameStatus().getResult());
+    }
+
+    @Test
+    public void statesGameIsInProgress() {
+    Board board = new Board(3, asList(X, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY));
+
+        assertEquals("The game is still in progress!", board.gameStatus().getResult());
     }
 }
 

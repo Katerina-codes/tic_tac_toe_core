@@ -12,6 +12,7 @@ public interface UI {
     String UNBEATABLE_PLAYER_VS_UNBEATABLE_PLAYER = "7";
     String GUI_PLAYER_VS_GUI_PLAYER = "8";
     String GUI_PLAYER_VS_UNBEATABLE_PLAYER = "9";
+    String UNBEATABLE_PLAYER_VS_GUI_PLAYER = "10";
     int THREE_BY_THREE = 3;
 
     void askForGameMode();
@@ -24,7 +25,7 @@ public interface UI {
 
     void displayBoard(List<Mark> rows, int size);
 
-    void announceWinner(Result winner);
+    void announceGameStatus(Result winner);
 
     boolean replay();
 

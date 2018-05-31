@@ -8,7 +8,7 @@ import java.util.List;
 public class Game {
 
     private final UI ui;
-    private Board board;
+    public Board board;
     public Player currentPlayer;
     public Player playerOne;
     public Player playerTwo;
@@ -26,7 +26,6 @@ public class Game {
             playNextMove();
             displayBoard();
             switchPlayer();
-
         }
         endGame();
     }
@@ -52,8 +51,14 @@ public class Game {
     }
 
     private void endResult() {
-        Result result = board.findWinner();
-        ui.announceWinner(result);
+        Result gameStatus = board.gameStatus();
+        if (gameIsOver(gameStatus)) {
+            ui.announceGameStatus(gameStatus);
+        }
+    }
+
+    private boolean gameIsOver(Result result) {
+        return !result.equals(Result.GAME_IN_PROGRESS);
     }
 
     private void playNextMove() {
@@ -89,7 +94,7 @@ public class Game {
         }
     }
 
-    public boolean gameIsNotOver() {
+    private boolean gameIsNotOver() {
         return !this.board.gameIsOver();
     }
 
@@ -100,5 +105,8 @@ public class Game {
     public void receiveGameMode(String gameMode) {
         setPlayers(gameMode, playerTypes);
         currentPlayer = playerOne;
+        if (gameMode.equals(UI.UNBEATABLE_PLAYER_VS_GUI_PLAYER)) {
+           run();
+        }
     }
 }
