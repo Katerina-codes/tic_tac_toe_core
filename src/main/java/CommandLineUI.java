@@ -98,9 +98,8 @@ public class CommandLineUI implements UI {
         output.println(formattedRows);
     }
 
-    @Override
-    public void announceGameStatus(Result winner) {
-
+    public void announceGameStatus(Result result) {
+        announceWinner(result);
     }
 
     public void announceWinner(Result result) {

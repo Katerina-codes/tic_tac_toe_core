@@ -33,10 +33,6 @@ public class Controller implements UI {
     private Board board = new Board(3);
     private GuiPlayer guiPlayer = new GuiPlayer(X);
 
-    public Controller(Game game) {
-        this.game = game;
-    }
-
     public Controller() {
         this.game = new Game(this, board);
     }
